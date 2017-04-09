@@ -12,13 +12,13 @@ public class FactoryContactFormPage {
     @FindBy(xpath = "//*[@id=\"sidebar\"]/ul/li[3]/a/i")
     WebElement leftReportIssue;
 
-    @FindBy(xpath = "//*[@id=\"summary\"]")
+    @FindBy(id = "summary")
     WebElement summary;
 
-    @FindBy(xpath = "//*[@id=\"description\"]")
+    @FindBy(id = "description")
     WebElement description;
 
-    @FindBy(xpath = "//*[@id=\"report_bug_form\"]/div/div[2]/div[2]/input")
+    @FindBy(xpath = "//input[@type='submit']")
     WebElement submitIssue;
 
     public void fillContactForm(String summary, String description){

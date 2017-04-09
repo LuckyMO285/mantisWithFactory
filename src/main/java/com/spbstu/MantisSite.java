@@ -4,7 +4,6 @@ import com.spbstu.pageObjectsFactory.FactoryContactFormPage;
 import com.spbstu.pageObjectsFactory.FactoryDeleteIssue;
 import com.spbstu.pageObjectsFactory.FactoryHomePage;
 import com.spbstu.pageObjectsFactory.FactoryTestAfterDeleting;
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

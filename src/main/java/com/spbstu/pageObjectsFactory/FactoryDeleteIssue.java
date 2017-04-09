@@ -22,10 +22,10 @@ public class FactoryDeleteIssue {
             })
    List<WebElement> checkSummary;
 
-    @FindBy(xpath = "//*[@id=\"main-container\"]/div[2]/div[2]/div/div[1]/div/div[2]/div[2]/div/table/tfoot/tr/td/div/div[10]/form/fieldset/input[4]")
+    @FindBy(xpath = "//input[@type='submit' and @value='Delete']")
     WebElement pressDelete;
 
-    @FindBy(xpath = "//*[@id=\"action-group-div\"]/form/div/div[2]/div[2]/input")
+    @FindBy(xpath = "//input[@type='submit']")
     WebElement pressDeleteIssues;
 
     public int searchIssue() {

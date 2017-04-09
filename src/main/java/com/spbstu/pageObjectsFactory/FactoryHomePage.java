@@ -14,7 +14,7 @@ public class FactoryHomePage {
     @FindBy(id = "password")
     WebElement password;
 
-    @FindBy(xpath = "//*[@id=\"login-form\"]/fieldset/input[2]")
+    @FindBy(xpath = "//input[@type='submit']")
     WebElement submit;
 
     public void login(String username, String password){
