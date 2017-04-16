@@ -1,9 +1,9 @@
 package mantisWithFactory;
 
 import com.spbstu.MantisSite;
+import mantisWithFactory.helper.LoadFromResources;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 /**
  * Created by luck on 09.04.17.
@@ -14,19 +14,24 @@ public class FactoryTests extends BaseTest {
     @Test
     public void contactFormTest(){
         MantisSite.open();
-        MantisSite.homePage.login("administrator", "root");
-        MantisSite.contactFormPage.fillContactForm("SoHelpMeGod", "Yeah! I managed to do this!");
-        MantisSite.contactFormPage.submitContactForm();
+        MantisSite.homePage.login(LoadFromResources.getUser("administrator"));
+        MantisSite.createAnIssue.writeAnIssue(LoadFromResources.getIssue("issue_1"));
+        MantisSite.createAnIssue.submitIssue();
 
-        int i = MantisSite.deleteIssue.searchIssue();
-        MantisSite.deleteIssue.clickOnID(i);
-        MantisSite.deleteIssue.clickOnDelete();
-        MantisSite.deleteIssue.clickOnDeleteIssues();
+        Assert.assertTrue(MantisSite.testAfterDeleting.isContains());   //check that the issue is creating, when i'm admin
 
-        MantisSite.testAfterDeleting.check();
+        MantisSite.logOut.clickOnLogOutSpan();
 
+        MantisSite.homePage.login(LoadFromResources.getUser("user_1"));
 
-        // assert
+        try {
+            Assert.assertTrue(MantisSite.testIsAssignedToUsername.isContains(LoadFromResources.getUser("user_1").getLogin()));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        MantisSite.logOut.clickOnLogOutSpan();
+
+        MantisSite.homePage.login(LoadFromResources.getUser("administrator"));
     }
 
 }

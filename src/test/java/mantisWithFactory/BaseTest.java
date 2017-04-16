@@ -10,6 +10,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
+import org.testng.Assert;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
@@ -34,18 +35,22 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-//        IndexPage.setDriver(driver);
-//        ContactFormPage.setDriver(driver);
-//        PageFactory.initElements(driver, IndexPage.class);
         MantisSite.init(driver);
-//        HomePage.setDriver(driver);
-//        ContactFormPage.setDriver(driver);
     }
 
     @AfterMethod()
     public void afterMethod(ITestResult testResult) {
+        MantisSite.deleteIssue.clickViewIssues();
+
+        try {
+            MantisSite.deleteIssue.markToDelete();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        MantisSite.deleteIssue.clickOnDelete();
+        MantisSite.deleteIssue.clickOnDeleteIssues();
         System.out.println(String.format("Test method %s has been finished successfully: %s", testResult.getName(), testResult.isSuccess()));
-//        driver.close();
+        Assert.assertFalse(MantisSite.testAfterDeleting.isContains());
     }
 
     @BeforeSuite(alwaysRun = true)

@@ -1,5 +1,6 @@
-package com.spbstu.pageObjectsFactory;
+package com.spbstu.Entities;
 
+import com.spbstu.pageObjectsFactory.entities.Issues;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -7,7 +8,8 @@ import org.openqa.selenium.support.FindBy;
  * Created by luck on 09.04.17.
  */
 
-public class FactoryContactFormPage {
+//TODO
+public class WriteAnIssue {
 
     @FindBy(xpath = "//*[@id=\"sidebar\"]/ul/li[3]/a/i")
     WebElement leftReportIssue;
@@ -21,13 +23,17 @@ public class FactoryContactFormPage {
     @FindBy(xpath = "//input[@type='submit']")
     WebElement submitIssue;
 
-    public void fillContactForm(String summary, String description){
+    @FindBy(xpath = "//*[@id=\"handler_id\"]/option[.='username1']")
+    WebElement AssignedToUser;
+
+    public void writeAnIssue(Issues issue){
         this.leftReportIssue.click();
-        this.summary.sendKeys(summary);
-        this.description.sendKeys(description);
+        this.AssignedToUser.click();
+        this.summary.sendKeys(issue.getSummary());
+        this.description.sendKeys(issue.getDescription());
     }
 
-    public void submitContactForm(){
+    public void submitIssue(){
         this.submitIssue.click();
     }
 }

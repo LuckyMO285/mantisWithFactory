@@ -1,9 +1,11 @@
 package com.spbstu;
 
-import com.spbstu.pageObjectsFactory.FactoryContactFormPage;
+import com.spbstu.Entities.WriteAnIssue;
 import com.spbstu.pageObjectsFactory.FactoryDeleteIssue;
-import com.spbstu.pageObjectsFactory.FactoryHomePage;
+import com.spbstu.Entities.UserAuthorization;
+import com.spbstu.pageObjectsFactory.FactoryLogOut;
 import com.spbstu.pageObjectsFactory.FactoryTestAfterDeleting;
+import com.spbstu.pageObjectsFactory.FactoryTestIsAssignedToUsername;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -12,17 +14,21 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class MantisSite {
 
-    public static FactoryContactFormPage contactFormPage;
-    public static FactoryHomePage homePage;
+    public static WriteAnIssue createAnIssue;
+    public static UserAuthorization homePage;
     public static FactoryDeleteIssue deleteIssue;
     public static FactoryTestAfterDeleting testAfterDeleting;
+    public static FactoryLogOut logOut;
+    public static FactoryTestIsAssignedToUsername testIsAssignedToUsername;
     private static WebDriver driver;
 
     public static void init(WebDriver driver){
-        MantisSite.contactFormPage = PageFactory.initElements(driver, FactoryContactFormPage.class);
-        MantisSite.homePage = PageFactory.initElements(driver, FactoryHomePage.class);
+        MantisSite.createAnIssue = PageFactory.initElements(driver, WriteAnIssue.class);
+        MantisSite.homePage = PageFactory.initElements(driver, UserAuthorization.class);
         MantisSite.deleteIssue = PageFactory.initElements(driver, FactoryDeleteIssue.class);
         MantisSite.testAfterDeleting = PageFactory.initElements(driver, FactoryTestAfterDeleting.class);
+        MantisSite.logOut = PageFactory.initElements(driver, FactoryLogOut.class);
+        MantisSite.testIsAssignedToUsername = PageFactory.initElements(driver, FactoryTestIsAssignedToUsername.class);
         MantisSite.driver = driver;
     }
 

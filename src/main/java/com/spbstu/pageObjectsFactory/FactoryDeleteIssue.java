@@ -1,13 +1,10 @@
 package com.spbstu.pageObjectsFactory;
 
-import com.spbstu.MantisSite;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.List;
 
@@ -17,8 +14,11 @@ import java.util.List;
 
 public class FactoryDeleteIssue {
 
+    @FindBy(xpath = "//*[@id=\"sidebar\"]/ul/li[2]/a/i")
+    WebElement ViewIssues;
+
     @FindAll({
-            @FindBy(xpath = "//*[@id=\"buglist\"]/tbody/tr/td[11]")
+            @FindBy(xpath = "//td[@class='column-summary']")
             })
    List<WebElement> checkSummary;
 
@@ -28,21 +28,17 @@ public class FactoryDeleteIssue {
     @FindBy(xpath = "//input[@type='submit']")
     WebElement pressDeleteIssues;
 
-    public int searchIssue() {
-        int i = 0;
-        boolean exitFromCycle = true;
-        while (exitFromCycle && i < checkSummary.size()) {
-            if (checkSummary.get(i).getText().equals("SoHelpMeGod")) {
-                Assert.assertTrue(true);
-                exitFromCycle = false;
-            }
-            i++;
-        }
-        return i;
+    public void clickViewIssues(){
+        ViewIssues.click();
     }
 
-    public void clickOnID(int i){
-        MantisSite.getDriver().findElement(By.xpath("//*[@id=\"buglist\"]/tbody/tr["+i+"]/td[4]/a")).click();
+    public void markToDelete() throws Exception {
+        checkSummary.stream()
+                .filter(row -> row.findElement(By.xpath("//td[@class='column-summary']")).getText().equals("SoHelpMeGod"))
+                .findFirst()
+                .orElseThrow(Exception::new)
+                .findElement(By.xpath("//td[@class='column-id']"))
+                .click();
     }
 
     public void clickOnDelete(){

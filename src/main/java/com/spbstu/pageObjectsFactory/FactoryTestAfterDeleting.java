@@ -15,24 +15,13 @@ import java.util.List;
 public class FactoryTestAfterDeleting {
 
     @FindAll({
-            @FindBy(xpath = "//*[@id=\"buglist\"]/tbody/tr/td[11]")
+            @FindBy(xpath = "//td[@class='column-summary']")
     })
     private List<WebElement> checkSummary2;
 
-    public void check() {
-        try {
-            int i = 0;
-            boolean exitFromCycle = true;
-            while (exitFromCycle && i < this.checkSummary2.size()) {
-                if (checkSummary2.get(i).getText().equals("SoHelpMeGod")) {
-                    Assert.assertTrue(false);
-                    exitFromCycle = false;
-                }
-                i++;
-            }
-        } catch (NoSuchElementException ignored) {
-            Assert.assertTrue(true);
-        }
+    public boolean isContains() {
+        return checkSummary2.stream()
+                .anyMatch(row -> row.findElement(By.xpath("//td[@class='column-summary']")).getText().equals("SoHelpMeGod"));
     }
 
 }

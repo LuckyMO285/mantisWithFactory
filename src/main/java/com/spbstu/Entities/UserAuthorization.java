@@ -1,5 +1,6 @@
-package com.spbstu.pageObjectsFactory;
+package com.spbstu.Entities;
 
+import com.spbstu.pageObjectsFactory.entities.Users;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
  * Created by luck on 09.04.17.
  */
 
-public class FactoryHomePage {
+public class UserAuthorization {
     @FindBy(id = "username")
     WebElement username;
 
@@ -17,9 +18,9 @@ public class FactoryHomePage {
     @FindBy(xpath = "//input[@type='submit']")
     WebElement submit;
 
-    public void login(String username, String password){
-        this.username.sendKeys(username);
-        this.password.sendKeys(password);
+    public void login(Users user){
+        this.username.sendKeys(user.getLogin());
+        this.password.sendKeys(user.getPassword());
         submit.click();
     }
 
