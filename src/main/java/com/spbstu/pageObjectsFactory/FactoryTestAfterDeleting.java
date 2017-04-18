@@ -21,7 +21,9 @@ public class FactoryTestAfterDeleting {
 
     public boolean isContains() {
         return checkSummary2.stream()
-                .anyMatch(row -> row.findElement(By.xpath("//td[@class='column-summary']")).getText().equals("SoHelpMeGod"));
+                .anyMatch(row -> row.findElement(By.xpath("//td[@class='column-summary']"))
+                        .getText()
+                        .equals("SoHelpMeGod"));
     }
 
 }
