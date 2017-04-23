@@ -19,11 +19,11 @@ public class FactoryTestAfterDeleting {
     })
     private List<WebElement> checkSummary2;
 
-    public boolean isContains() {
+    public boolean isContains(String summary) {
         return checkSummary2.stream()
                 .anyMatch(row -> row.findElement(By.xpath("//td[@class='column-summary']"))
                         .getText()
-                        .equals("SoHelpMeGod"));
+                        .equals(summary));
     }
 
 }

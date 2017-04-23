@@ -1,46 +1,35 @@
-package mantisWithFactory;
+package mantisWithFactory.stepdefs;
 
 import com.spbstu.MantisSite;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import mantisWithFactory.helper.LoadFromResources;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.asserts.SoftAssert;
 import org.testng.Assert;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by luck on 09.04.17.
+ * Created by luck on 23.04.17.
  */
-
-public class BaseTest {
-
-    SoftAssert softAssert;
-
+public class Hook {
     WebDriver driver;
 
-    @BeforeMethod()
-    public void beforeMethod(Method method) {
-        softAssert = new SoftAssert();
-        System.out.println(String.format("Before %s method.", method.getName()));
+    @Before
+    public void before(Scenario scenario){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        options.addArguments("--lang=en-GB");
         driver = new ChromeDriver(options);
+        driver.navigate().to("http://www.google.com");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
         MantisSite.init(driver);
     }
 
-    @AfterMethod()
-    public void afterMethod(ITestResult testResult) {
+    @After
+    public void after(Scenario scenario){
         MantisSite.logOut.clickOnLogOutSpan();
 
         MantisSite.homePage.login(LoadFromResources.getUser("administrator"));
@@ -54,18 +43,8 @@ public class BaseTest {
         }
         MantisSite.deleteIssue.clickOnDelete();
         MantisSite.deleteIssue.clickOnDeleteIssues();
-        System.out.println(String.format("Test method %s has been finished successfully: %s", testResult.getName(), testResult.isSuccess()));
         Assert.assertFalse(MantisSite.testAfterDeleting.isContains(LoadFromResources.getIssue("issue_1").getSummary()));
-    }
-
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
-
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void afterSute() {
-
+        driver.close();
     }
 
 }

@@ -16,8 +16,8 @@ import java.util.Map;
  * Created by luck on 16.04.17.
  */
 public class LoadFromResources {
-    public static final String DATA_USERS_JSON = "data/users.json";
-    public static final String DATA_ISSUES_JSON = "data/issue.json";
+    public static final String DATA_USERS_JSON = "users.json";
+    public static final String DATA_ISSUES_JSON = "issue.json";
     private static Map<String, Users> users;
     private static Map<String, Issues> issues;
 

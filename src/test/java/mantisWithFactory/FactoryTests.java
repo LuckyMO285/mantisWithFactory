@@ -12,26 +12,23 @@ import org.testng.annotations.Test;
 public class FactoryTests extends BaseTest {
 
     @Test
-    public void contactFormTest(){
+    public void contactFormTest() throws Exception {
         MantisSite.open();
         MantisSite.homePage.login(LoadFromResources.getUser("administrator"));
         MantisSite.createAnIssue.writeAnIssue(LoadFromResources.getIssue("issue_1"));
         MantisSite.createAnIssue.submitIssue();
 
-        Assert.assertTrue(MantisSite.testAfterDeleting.isContains());   //check that the issue is creating, when i'm admin
+        // TODO
+        Assert.assertTrue(MantisSite.testAfterDeleting.isContains(LoadFromResources.getIssue("issue_1").getSummary()));   //check that the issue is creating, when i'm admin
 
         MantisSite.logOut.clickOnLogOutSpan();
 
         MantisSite.homePage.login(LoadFromResources.getUser("user_1"));
 
-        try {
-            Assert.assertTrue(MantisSite.testIsAssignedToUsername.isContains(LoadFromResources.getUser("user_1").getLogin()));
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        MantisSite.logOut.clickOnLogOutSpan();
+        Assert.assertTrue(MantisSite.testIsAssignedToUsername.isContains(LoadFromResources.getUser("user_1").getLogin()));
 
-        MantisSite.homePage.login(LoadFromResources.getUser("administrator"));
+        // TODO
+
     }
 
 }
